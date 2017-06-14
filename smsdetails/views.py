@@ -12,12 +12,20 @@ from .forms import SmsDetailForm, UserForm, ContactDetailForm
 from twilio.rest import Client
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from .kandyservice import *
 # Create your views here.
 
 
 account_sid = "ACc70d30c48ffa3987940f81f3c1bff2a9"
 # Your Auth Token from twilio.com/console
 auth_token = "ce34579e8f7e2d6e7b7d654356be098a"
+
+
+# Kandy specific
+domain_api_key = "DAKb452d7f3dc3647788008c6f27fbf0d40"
+domain_secret = "DAS016c34a169e1498f801ef68a7cdab9a1"
+user_id = "shubham"
+source_phone_number = "+919511727469"
 
 client = Client(account_sid, auth_token)
 
@@ -101,10 +109,18 @@ def sendmessage(request):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
-            messageSent = client.messages.create(
-                to=str(request.POST['to']),
-                from_="+14158422848",
-                body=str(request.POST['message_body']))
+            destination_phone_number = request.POST['to']
+            messagebody = request.POST['message_body']
+            try:
+                sms = SMS(domain_api_key, domain_secret, user_id)
+                sms.send(source_phone_number,
+                         destination_phone_number, messagebody)
+            except Exception as e:
+                print('Error: ' + str(e))
+            # messageSent = client.messages.create(
+            #     to=str(request.POST['to']),
+            #     from_="+14158422848",
+            #     body=str(request.POST['message_body']))
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
             message.user = request.user
@@ -199,7 +215,7 @@ def addcontact(request):
             contact.first_name = request.POST['first_name']
             contact.last_name = request.POST['last_name']
             contact.phone_num = request.POST['phone_num']
-            contact.email = request.POST.get('first_name', None)
+            contact.email = request.POST.get('email', None)
             contact.user = request.user
             contact.save()
             all_contacts = ContactDetail.objects.filter(
