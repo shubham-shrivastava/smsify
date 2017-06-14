@@ -18,6 +18,6 @@ urlpatterns = [
     url(r'contacts/(?P<pk>[0-9]+)/delete/$',
         views.ContactDelete.as_view(), name='contact-delete'),
 ]
-if not settings.DEBUG:
+if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
                           document_root=settings.STATIC_ROOT)
