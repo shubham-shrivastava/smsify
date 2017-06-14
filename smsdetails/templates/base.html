@@ -54,7 +54,7 @@
           -->
 
           <div class="logo">
-            <h5 style="font-size: 15px"><a href="{% url 'smsdetails:index' %}"><strong style="color: red">Hello User</strong></a></h5>
+            <h5 style="font-size: 15px"><a href="{% url 'smsdetails:index' %}"><strong style="color: red">Hello {{ request.user.username }}</strong></a></h5>
           </div>         
           <div class="sidebar-wrapper">
             <ul class="nav">
@@ -127,7 +127,7 @@
                    <ul class="dropdown-menu">
                     <li><a href="#">View Profile</a></li>
                     <li><a href="#">Change Password</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li><a href="{% url 'smsdetails:logout_user' %}">Logout</a></li>
                   </ul>
                 </li>
               </ul>

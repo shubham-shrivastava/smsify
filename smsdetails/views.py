@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from .models import SmsDetail, ContactDetail
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse
@@ -7,9 +8,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.forms import ModelForm
 from django.views import generic
-from .forms import SmsDetailForm
+from .forms import SmsDetailForm, UserForm, ContactDetailForm
 from twilio.rest import Client
 from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 # Create your views here.
 
 
@@ -20,25 +22,43 @@ auth_token = "ce34579e8f7e2d6e7b7d654356be098a"
 client = Client(account_sid, auth_token)
 
 
-class MessageIndexView(generic.ListView):
-    template_name = 'messages.html'
-    context_object_name = "all_messages"
+def messageview(request):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    all_messages = SmsDetail.objects.filter(user=request.user)
+    return render(request, 'messages.html', {'all_messages': all_messages})
 
-    def get_queryset(self):
-        return SmsDetail.objects.all()
+
+def contactview(request):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    all_contacts = ContactDetail.objects.filter(user=request.user)
+    return render(request, 'contacts.html', {'all_contacts': all_contacts})
 
 
-class ContactIndexView(generic.ListView):
-    template_name = 'contacts.html'
-    context_object_name = "all_contacts"
+# class MessageIndexView(generic.ListView):
+#     template_name = 'messages.html'
+#     context_object_name = "all_messages"
 
-    def get_queryset(self):
-        return ContactDetail.objects.all()
+#     def get_queryset(self):
+#         return SmsDetail.objects.all()
+
+
+# class ContactIndexView(generic.ListView):
+#     template_name = 'contacts.html'
+#     context_object_name = "all_contacts"
+
+#     def get_queryset(self):
+#         return ContactDetail.objects.all()
 
 
 def index(request):
-    top_5_sms = SmsDetail.objects.all()[:5]
-    last_added = ContactDetail.objects.all()[:5]
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
+    top_5_sms = SmsDetail.objects.filter(
+        user=request.user)[:5]
+    last_added = ContactDetail.objects.filter(
+        user=request.user)[:5]
     context = {'all_sms': top_5_sms, 'last_added': last_added}
     return render(request, 'index.html', context)
 
@@ -66,7 +86,8 @@ def sendfromcontact(request, pk):
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
             message.save()
-            all_messages = SmsDetail.objects.all()
+            all_messages = SmsDetail.objects.filter(
+                user=request.user)
             return render(request, 'messages.html', {'all_messages':
                                                      all_messages})
     else:
@@ -86,8 +107,10 @@ def sendmessage(request):
             #     body=str(request.POST['message_body']))
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
+            message.user = request.user
             message.save()
-            all_messages = SmsDetail.objects.all()
+            all_messages = SmsDetail.objects.filter(
+                user=request.user)
             return render(request, 'messages.html', {'all_messages':
                                                      all_messages})
     else:
@@ -109,3 +132,80 @@ class MessageDelete(DeleteView):
 class ContactDelete(DeleteView):
     model = ContactDetail
     success_url = reverse_lazy('smsdetails:contact')
+
+
+@ensure_csrf_cookie
+@csrf_protect
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('smsdetails:index')
+                # top_5_sms = SmsDetail.objects.filter(
+                #     user=request.user)[:5]
+                # last_added = ContactDetail.objects.filter(
+                #     user=request.user)[:5]
+                # context = {'all_sms': top_5_sms, 'last_added': last_added}
+                # return render(request, 'index.html', context)
+            else:
+                return render(request, 'login.html', {'error_message': 'Your account has been disabled'})
+        else:
+            return render(request, 'login.html', {'error_message': 'Invalid login'})
+    return render(request, 'login.html')
+
+
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'login.html', context)
+
+
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                top_5_sms = SmsDetail.objects.filter(
+                    user=request.user)[:5]
+                last_added = ContactDetail.objects.filter(
+                    user=request.user)[:5]
+                context = {'all_sms': top_5_sms, 'last_added': last_added}
+                return render(request, 'index.html', context)
+    context = {
+        "form": form,
+    }
+    return render(request, 'register.html', context)
+
+
+def addcontact(request):
+    contact = ContactDetail()
+    if request.method == 'POST':
+        form = ContactDetailForm(request.POST)
+        if form.is_valid():
+            contact.first_name = request.POST['first_name']
+            contact.last_name = request.POST['last_name']
+            contact.phone_num = request.POST['phone_num']
+            contact.email = request.POST.get('first_name', None)
+            contact.user = request.user
+            contact.save()
+            all_contacts = ContactDetail.objects.filter(
+                user=request.user)
+            return render(request, 'contacts.html', {'all_contacts':
+                                                     all_contacts})
+    else:
+        form = ContactDetailForm()
+    return render(request, 'addcontact.html', {'form': form})
