@@ -101,10 +101,10 @@ def sendmessage(request):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
-            # messageSent = client.messages.create(
-            #     to=str(request.POST['to']),
-            #     from_="+14158422848",
-            #     body=str(request.POST['message_body']))
+            messageSent = client.messages.create(
+                to=str(request.POST['to']),
+                from_="+14158422848",
+                body=str(request.POST['message_body']))
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
             message.user = request.user
@@ -179,12 +179,7 @@ def register(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
-                top_5_sms = SmsDetail.objects.filter(
-                    user=request.user)[:5]
-                last_added = ContactDetail.objects.filter(
-                    user=request.user)[:5]
-                context = {'all_sms': top_5_sms, 'last_added': last_added}
-                return render(request, 'index.html', context)
+                return redirect('smsdetails:index')
     context = {
         "form": form,
     }
