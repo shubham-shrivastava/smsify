@@ -108,11 +108,16 @@ def sendmessage(request):
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
             message.user = request.user
+            contactfound = ContactDetail.objects.filter(
+                phone_num=request.POST['to'])
+            print("contact: " + str(contactfound))
+            if contactfound:
+                message.contact = contactfound[0]
             message.save()
             all_messages = SmsDetail.objects.filter(
                 user=request.user)
             return render(request, 'messages.html', {'all_messages':
-                                                     all_messages})
+                                                     all_messages, 'contactfound': contactfound})
     else:
         form = SmsDetailForm()
     return render(request, 'sendmessage.html', {'form': form})

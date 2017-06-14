@@ -41,11 +41,13 @@
 									{% for message in all_messages %}
 									<tr>
 										<td style="padding: 0px 10px"><a href="#" >{{ forloop.counter }}</a></td>
+
 										{% if message.contact is not None %}
 											<td style="padding: 0px 10px">{{ message.contact.first_name }} {{ message.contact.last_name }}</td>
 											<td style="padding: 0px 10px">{{ message.contact.phone_num}}</td>
+										
 										{% else %}
-											<td>Unsaved Contact</td>
+												<td>Unsaved Contact</td>
 											<td style="padding: 0px 10px">{{ message.to}}</td>
 										{% endif %}
 										
