@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+	
+{% endblock %}
+
+{% block contact %}
+"active"
+{%endblock%}
+{%block body %}
+ <div class="content">
+	<div class="container-fluid">
+		<div class="row">
+				<div class="col-md-12">
+				<a class="waves-effect waves-light btn btn-success" style="float: right;" href="#">Add new Contact</a>
+					<div class="card">
+						<div class="card-header" data-background-color="red">
+							<h4 class="title">All Conacts</h4>
+						</div>
+						<div class="card-content table-responsive">
+							<table class="table table-hover">
+								<thead class="text-warning">
+									<th>SN</th>
+									<th>Name</th>
+									<th>Phone Number</th>
+									<th>Delete</th>
+									<th>Send Message</th>
+
+
+								</thead>
+								<tbody>
+									{% for contact in all_contacts %}
+									<tr>
+										<td style="padding: 0px 10px"><a href="#" >{{ forloop.counter }}</a></td>
+										<td style="padding: 0px 10px">{{ contact.first_name }} {{ contact.last_name }}</td>
+										<td style="padding: 0px 10px">{{ contact.phone_num}}</td>
+										<td style="padding: 0px 10px"><div class="">
+		                                     <form action="{% url 'smsdetails:contact-delete' contact.id%}" method="post" accept-charset="utf-8">
+		                                    {% csrf_token %}
+		                                    <input type="hidden" name="contact_id" value="{{ contact.id}}" />
+		                                     <button class="btn btn-danger" type="submit">Delete</button>
+		                                    </form>
+		                                </div></td>
+		                                <td style="padding: 0px 10px"><div class="">
+		                                    <a href="{% url 'smsdetails:sendfromcontact' contact.id%}"><button class="btn btn-success">Send</button></a>
+		                                </div></td>
+
+									</tr>
+									{% endfor %}
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+				</div>
+
+{% endblock %}
+
+{% block js %}
+ 
+{% endblock %}

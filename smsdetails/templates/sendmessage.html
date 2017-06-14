@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block send %}
+"active"
+{%endblock%}
+	{% block body %}
+		<div class="content">
+	            <div class="container-fluid">
+	                <div class="row">
+	                    <div class="col-md-5">
+	                        <div class="card">
+	                            <div class="card-header" data-background-color="red">
+	                                <h4 class="title">Send Message</h4>
+									<p class="category">Fill out the details to send</p>
+	                            </div>
+	                            <div class="card-content">
+	                                <form action="{% url 'smsdetails:sendmessage' %}" method="post">
+	                                	{% csrf_token %}
+	                                    <div class="row">	                                        
+	                                        <div class="col-md-5">
+												<div class="form-group label-floating">
+													<label class="control-label">Enter Number</label>
+													{% if comingfrom is not None %}
+													<input type="text" class="form-control" name="to" required="true" value="{{ contactinst.phone_num}}">
+													{%else%}
+													<input type="text" class="form-control" name="to" required="true">
+													{%endif%}
+												</div>
+	                                        </div>
+	                                        	<div class="col-md-1">
+	                                        		<label class="control-label">Or</label>
+	                                        	</div>
+	                                        
+	                                        <div class="col-md-5">
+												<div class="form-group label-floating">
+													<label class="control-label">Select Contact</label>
+													<input type="text" class="form-control" >
+												</div>
+	                                        </div>
+	                                       
+	                                    </div>
+
+	                                    
+
+	                                   
+	                                    <div class="row">
+	                                        <div class="col-md-12">
+	                                            <div class="form-group">
+	                                                <label style="color: black">Message Body
+	                                                </label>
+													<div class="form-group label-floating">
+									    				<label class="control-label"> Type something in the box.</label>
+									    		
+								    					<textarea class="form-control" rows="5" id="textarea" maxlength="160" name="message_body" required="true"></textarea>
+								    					<div id="textarea_feedback"></div>
+		                        					</div>
+	                                            </div>
+	                                        </div>
+	                                    </div>
+
+	                                    <button type="submit" class="btn btn-success pull-right"><i class="material-icons"> send</i>
+	                                    &nbsp;
+	                                    Send</button>
+	                                    <div class="clearfix"></div>
+	                                </form>
+	                            </div>
+	                        </div>
+	                        </div>
+
+	                        <div class ="col-md-1" style="
+	                                        		margin-top: 12%;
+	                                        		margin-left: 1.5%;
+	                                        		margin-right: -1%;
+	                                        		>
+	                                        		
+	                                        		<label class="control-label">Or</label>
+	                                        	</div>
+
+
+	                        <div class="col-md-5">
+	                        <div class="card">
+	                            <div class="card-header" data-background-color="red">
+	                                <h4 class="title">Send OTP</h4>
+									<p class="category">This will send a 6 digit OTP to selected contact.</p>
+	                            </div>
+	                            <div class="card-content">
+	                                <form>
+	                                    <div class="row">	                                        
+	                                       
+	                                        
+	                                        <div class="col-md-12">
+												<div class="form-group label-floating">
+													<label class="control-label">Select Contact</label>
+													<input type="text" class="form-control" >
+												</div>
+	                                        </div>
+	                                       
+	                                    </div>
+
+	                                    
+
+	                                   
+	                                    
+
+	                                    <button type="submit" class="btn btn-success pull-right"><i class="material-icons"> send</i>
+	                                    &nbsp;
+	                                    Send</button>
+	                                    <div class="clearfix"></div>
+	                                </form>
+	                            </div>
+	                        </div>
+	                        </div>
+
+						
+	                </div>
+	            </div>
+	        </div>
+	{%endblock%}
+
+	{% block js %}
+	<script>
+		$(document).ready(function() {
+    var text_max = 160;
+    $('#textarea_feedback').html(text_max + ' characters remaining');
+
+    $('#textarea').keyup(function() {
+        var text_length = $('#textarea').val().length;
+        var text_remaining = text_max - text_length;
+
+        $('#textarea_feedback').html(text_remaining + ' characters remaining');
+    });
+});
+    </script>
+	{% endblock %}

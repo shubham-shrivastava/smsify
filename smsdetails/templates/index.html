@@ -1,0 +1,100 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block dashboard %}
+"active"
+{%endblock%}
+
+
+
+{%block body %}
+
+
+
+<div class="content">
+	<div class="container-fluid">
+
+
+		<div class="row">
+
+
+				<div class="col-lg-6 col-md-12">
+					<div class="card" style="width: 105%; margin-left: -20px">
+						<div class="card-header" data-background-color="red">
+							<h4 class="title">Recently Added Contacts</h4>
+						</div>
+						<div class="card-content table-responsive">
+							<table class="table table-hover">
+								<thead class="text-warning">
+									<th>SN</th>
+									<th>Name</th>
+									<th>Phone Number</th>
+
+								</thead>
+
+								<tbody>
+									{% for contact in last_added %}
+									<tr>
+										<td>										
+										{{ forloop.counter }}					
+										
+										</td>
+										<td>{{ contact.first_name }} {{ contact.last_name }}</td>
+										<td>{{ contact.phone_num}}</td>
+										
+										</tr>
+									{% endfor %}
+											
+								</tbody>
+							</table>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-12">
+					<div class="card" style="width: 105%; margin-left: -20px">
+						<div class="card-header" data-background-color="red">
+							<h4 class="title">Recent Sent Messages</h4>
+							
+						</div>
+						<div class="card-content table-responsive">
+							<table class="table table-hover">
+								<thead class="text-warning">
+									<th>ID</th>
+									<th>To</th>
+									<th>Body</th>
+
+								</thead>
+								<tbody>
+									{% for sms in all_sms %}
+									<tr>
+										<td><a href="#" >{{ forloop.counter }}</a></td>
+										{% if sms.contact is not None %}
+											<td>{{ sms.contact.first_name }} {{ sms.contact.last_name }}</td>
+										{% else %}
+											<td>{{sms.to}}</td>
+										{% endif %}
+										<td id="message" style="padding: 0px 10px; min-width:160px; max-width: 250px; white-space:normal; word-wrap:break-word;">{{ sms.message_body}}</td>
+
+									</tr>
+									{% endfor %}
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+
+
+
+

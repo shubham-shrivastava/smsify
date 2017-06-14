@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block css %}
+	<style type="text/css">
+	@media (min-width: @screen-sm-min) {
+    #message {
+        width: auto;
+    }
+}
+	</style>	
+{% endblock %}
+
+		
+{% block history %}
+"active"
+{%endblock%}
+{%block body %}
+ <div class="content">
+	<div class="container-fluid">
+		<div class="row">
+			
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-header" data-background-color="red">
+							<h4 class="title">All Messages</h4>
+						</div>
+						<div class="card-content table-responsive">
+							<table class="table table-hover">
+								<thead class="text-warning">
+									<th>SN</th>
+									<th>To</th>
+									<th>Phone Number</th>
+									<th>Body</th>
+									<th>Delete</th>
+									
+
+
+								</thead>
+								<tbody>
+									{% for message in all_messages %}
+									<tr>
+										<td style="padding: 0px 10px"><a href="#" >{{ forloop.counter }}</a></td>
+										{% if message.contact is not None %}
+											<td style="padding: 0px 10px">{{ message.contact.first_name }} {{ message.contact.last_name }}</td>
+											<td style="padding: 0px 10px">{{ message.contact.phone_num}}</td>
+										{% else %}
+											<td>Unsaved Contact</td>
+											<td style="padding: 0px 10px">{{ message.to}}</td>
+										{% endif %}
+										
+										
+										<td  id= "message" style="padding: 0px 10px; min-width:160px; max-width: 250px; white-space:normal; word-wrap:break-word;">{{ message.message_body}}</td>
+										<td style="padding: 0px 10px"><div class="">
+		                                    <form action="{% url 'smsdetails:message-delete' message.id%}" method="post" accept-charset="utf-8">
+		                                    {% csrf_token %}
+		                                    <input type="hidden" name="message_id" value="{{ message.id}}" />
+		                                     <button class="btn btn-danger" type="submit">Delete</button>
+		                                    </form>
+		                                   
+		                                </div></td>
+		                               
+
+									</tr>
+									{% endfor %}
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
+				</div>
+			
+				
+
+{% endblock %}
+
+{% block readmore %}
+ <!--	<script src="{% static 'assets/js/readmore.js' %}" type="text/javascript" async></script>
+
+ 	 <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.4.1.js"></script>-->
+ 
+
+
+{% endblock %}
+
+
+ 

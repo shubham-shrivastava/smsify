@@ -1,0 +1,34 @@
+{% load staticfiles %}
+
+<html>
+
+
+<head>
+<title>404 error</title>
+
+<link href="{% static 'assets/background/css/errorcss.css' %}" rel="stylesheet" />
+</head>
+<body>
+
+
+	<div class="wrap">
+		
+		<div class="content">
+		
+			<div class="logo">
+				<h1><img src="{% static 'assets/img/logo.png' %}"/></h1>
+				<span><img src="{% static 'assets/img/signal.png' %}"/>Oops! The Page you requested was not found!</span>
+			</div>
+			<div class="buttom">
+				<div class="seach_bar">
+					<p>You can go to <span><a href="#">Home</a></span> page. Go <a href="goback" onclick="history.go(-1);return true;">Back</a></p>
+					</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="{% static 'assets/js/jquery-3.1.0.min.js' %}"></script>
+	<script src="{% static 'assets/background/js/jquery.backstretch.min.js' %}"></script>
+	<script src="{% static 'assets/background/js/scripts.js' %}"></script>
+</body>
+</html>
