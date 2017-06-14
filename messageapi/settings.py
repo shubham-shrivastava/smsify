@@ -26,7 +26,7 @@ SECRET_KEY = '$vylrtjfz&q6jfv5tvsv&$i2d_i!*r&3g6s-#71q$q7rxwxs_v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://smsify.herokuapp.com/']
 
 
 # Application definition
