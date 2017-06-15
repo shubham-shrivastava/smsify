@@ -101,7 +101,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+SESSION_COOKIE_SECURE = True
+CONN_MAX_AGE = 1000
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
