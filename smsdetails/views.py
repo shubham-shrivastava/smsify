@@ -151,15 +151,11 @@ def sendmessage(request):
 
 
 class MessageDelete(DeleteView):
-    if not request.user.is_authenticated():
-        return render(request, 'login.html')
     model = SmsDetail
     success_url = reverse_lazy('smsdetails:message')
 
 
 class ContactDelete(DeleteView):
-    if not request.user.is_authenticated():
-        return render(request, 'login.html')
     model = ContactDetail
     success_url = reverse_lazy('smsdetails:contact')
 
