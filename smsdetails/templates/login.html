@@ -65,9 +65,11 @@
                                             <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password" required="true">
                                         </div>
                                         <button type="submit" class="btn">Sign in!</button>
-                                         {% if error_message %}
-                                        <p><strong>{{ error_message }}</strong></p>
-                                    {% endif %}
+                                        {%if error%}
+                                                 <div class="form-top-left">
+                                                     <p>{{error}}</p>
+                                                 </div>
+                                            {% endif %}
                                     </form>
                                 </div>
 

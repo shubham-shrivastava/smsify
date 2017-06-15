@@ -194,7 +194,7 @@ def login_user(request):
             else:
                 return render(request, 'login.html', {'error_message': 'Your account has been disabled'})
         else:
-            return render(request, 'login.html', {'error_message': 'Invalid login'})
+            return render(request, 'login.html', {'error_message': 'User with these credentials not found. '})
     return render(request, 'login.html')
 
 
