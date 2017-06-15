@@ -63,13 +63,14 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="form-password">Password</label>
                                             <input type="password" name="password" placeholder="Password..." class="form-password form-control" id="form-password" required="true">
-                                        </div>
-                                        <button type="submit" class="btn">Sign in!</button>
-                                        {%if error%}
+                                             {%if error_message%}
                                                  <div class="form-top-left">
-                                                     <p>{{error}}</p>
+                                                     <p>{{error_message}}</p>
                                                  </div>
                                             {% endif %}
+                                        </div>
+                                        <button type="submit" class="btn">Sign in!</button>
+                                       
                                     </form>
                                 </div>
 
