@@ -218,9 +218,15 @@ def register(request):
         user.username = username
         user.email = email
         dupemail = User.objects.filter(email=email)
+        dupname = User.objects.filter(username=username)
         if dupemail:
             context = {
                 "error": "Email already exist, Please use unique email address",
+            }
+            return render(request, 'register.html', context)
+        if dupname:
+            context = {
+                "error": "Username already exist, Please use unique username.",
             }
             return render(request, 'register.html', context)
         user.set_password(password)
