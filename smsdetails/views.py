@@ -88,6 +88,8 @@ def demo(request):
 
 
 def sendfromcontact(request, pk):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     message = SmsDetail()
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
@@ -106,6 +108,8 @@ def sendfromcontact(request, pk):
 
 
 def sendmessage(request):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     message = SmsDetail()
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
@@ -147,11 +151,15 @@ def sendmessage(request):
 
 
 class MessageDelete(DeleteView):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     model = SmsDetail
     success_url = reverse_lazy('smsdetails:message')
 
 
 class ContactDelete(DeleteView):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     model = ContactDetail
     success_url = reverse_lazy('smsdetails:contact')
 
@@ -210,6 +218,8 @@ def register(request):
 
 
 def addcontact(request):
+    if not request.user.is_authenticated():
+        return render(request, 'login.html')
     contact = ContactDetail()
     if request.method == 'POST':
         form = ContactDetailForm(request.POST)
