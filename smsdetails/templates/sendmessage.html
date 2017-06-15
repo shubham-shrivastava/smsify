@@ -22,9 +22,9 @@
 												<div class="form-group label-floating">
 													<label class="control-label">Enter Number</label>
 													{% if comingfrom is not None %}
-													<input type="text" class="form-control" name="to" required="true" value="{{ contactinst.phone_num}}">
+													<input type="text" class="form-control" name="to" required="true" value="{{ contactinst.phone_num}}" maxlength="10">
 													{%else%}
-													<input type="text" class="form-control" name="to" required="true">
+													<input type="text" class="form-control" name="to" required="true" maxlength="10">
 													{%endif%}
 												</div>
 	                                        </div>
