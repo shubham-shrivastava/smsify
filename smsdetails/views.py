@@ -13,6 +13,7 @@ from twilio.rest import Client
 from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from .kandyservice import *
+from django.views.decorators.cache import cache_control
 # Create your views here.
 
 
@@ -179,6 +180,7 @@ def login_user(request):
     return render(request, 'login.html')
 
 
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def logout_user(request):
     logout(request)
     form = UserForm(request.POST or None)

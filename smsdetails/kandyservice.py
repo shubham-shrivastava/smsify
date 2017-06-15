@@ -39,6 +39,8 @@ class SMS:
             raise ValueError(err)
         print('')
 
+        # This will be constant. If not known, than use this function
+        # For this case/id: 60087B793BA2448A8BB8AFB8A3CBFA86
         #   Get device ID
         # print("Getting Device ID")
         # data = User.get_devices(self.user_access_token)
