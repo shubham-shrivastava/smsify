@@ -27,6 +27,7 @@
   <!--     Fonts and icons     -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
 
  <link href="{% static 'assets/css/material-dashboard.css' %}" rel="stylesheet"/>
 <!--   <link href="{% static 'assets/css/preloader.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
@@ -54,7 +55,7 @@
           -->
 
           <div class="logo">
-            <h5 style="font-size: 15px"><a href="{% url 'smsdetails:index' %}"><strong style="color: red">Hello {{ request.user.username}}</strong></a></h5>
+            <a  class="simple-text" href="{% url 'smsdetails:index' %}" style="font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;">{{ request.user.username}}</a>
           </div>         
           <div class="sidebar-wrapper">
             <ul class="nav">
@@ -119,16 +120,11 @@
 
 
 
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                     <i class="material-icons">person</i>
-                     <p class="hidden-lg hidden-md">Profile</p>
+                  <li>
+                    <a href="{% url 'smsdetails:logout_user' %}">
+                     <i class="material-icons" title="Logout">power_settings_new</i>
+                     <p class="hidden-lg hidden-md" >Logout</p>
                    </a>
-                   <ul class="dropdown-menu">
-                    <li><a href="#">View Profile</a></li>
-                    <li><a href="#">Change Password</a></li>
-                    <li><a href="{% url 'smsdetails:logout_user' %}">Logout</a></li>
-                  </ul>
                 </li>
               </ul>
 

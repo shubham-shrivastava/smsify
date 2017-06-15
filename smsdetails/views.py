@@ -14,8 +14,10 @@ from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from .kandyservice import *
 from django.views.decorators.cache import cache_control
+import re
 # Create your views here.
 
+regex = re.compile(r'\+91')
 
 account_sid = "ACc70d30c48ffa3987940f81f3c1bff2a9"
 # Your Auth Token from twilio.com/console
@@ -94,7 +96,10 @@ def sendfromcontact(request, pk):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
-            message.to = request.POST['to']
+            if bool(regex.search(request.POST['to'])):
+                message.to = request.POST['to']
+            else:
+                message.to = "+91" + request.POST['to']
             message.message_body = request.POST['message_body']
             message.save()
             all_messages = SmsDetail.objects.filter(
@@ -114,7 +119,14 @@ def sendmessage(request):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
-            destination_phone_number = request.POST['to']
+            #print(request.POST['to'])
+            if bool(regex.search(request.POST['to'])):
+                destination_phone_number = request.POST['to']
+                print(destination_phone_number)
+            else:
+                destination_phone_number = "+91" + request.POST['to']
+                print(destination_phone_number)
+            #destination_phone_number = request.POST['to']
             messagebody = request.POST['message_body']
             try:
                 sms = SMS(domain_api_key, domain_secret, user_id)
@@ -135,10 +147,11 @@ def sendmessage(request):
             if contactfound:
                 message.contact = contactfound[0]
             message.save()
-            all_messages = SmsDetail.objects.filter(
-                user=request.user)
-            return render(request, 'messages.html', {'all_messages':
-                                                     all_messages, 'contactfound': contactfound})
+            return redirect('smsdetails:message')
+            # all_messages = SmsDetail.objects.filter(
+            #     user=request.user)
+            # return render(request, 'messages.html', {'all_messages':
+            # all_messages, 'contactfound': contactfound})
     else:
         form = SmsDetailForm()
     return render(request, 'sendmessage.html', {'form': form})
