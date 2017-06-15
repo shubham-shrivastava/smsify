@@ -26,6 +26,8 @@ class SmsDetailForm(forms.Form):
 
 
 class UserForm(forms.ModelForm):
+    username = forms.CharField(max_length=20)
+    email = forms.EmailField(max_length=100)
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:

@@ -15,6 +15,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from .kandyservice import *
 from django.views.decorators.cache import cache_control
 import re
+from django.contrib.auth.models import User
 # Create your views here.
 
 regex = re.compile(r'\+91')
@@ -119,7 +120,7 @@ def sendmessage(request):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
-            #print(request.POST['to'])
+            # print(request.POST['to'])
             if bool(regex.search(request.POST['to'])):
                 destination_phone_number = request.POST['to']
                 print(destination_phone_number)
@@ -208,11 +209,20 @@ def logout_user(request):
 
 
 def register(request):
-    form = UserForm(request.POST or None)
-    if form.is_valid():
-        user = form.save(commit=False)
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
+    user = User()
+    form = UserForm(request.POST)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        email = request.POST['email']
+        user.username = username
+        user.email = email
+        dupemail = User.objects.filter(email=email)
+        if dupemail:
+            context = {
+                "error": "Email already exist, Please use unique email address",
+            }
+            return render(request, 'register.html', context)
         user.set_password(password)
         user.save()
         user = authenticate(username=username, password=password)

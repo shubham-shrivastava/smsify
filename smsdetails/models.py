@@ -7,6 +7,8 @@ phone_regex = RegexValidator(
     regex=r'^\+?1?\d{10}$', message="Phone number must be entered in the format: '+999999999'. 10 digits allowed.")
 # Create your models here.
 
+#User._meta.get_field('email')._unique = True
+
 
 class ContactDetail(models.Model):
     user = models.ForeignKey(User, default=1)

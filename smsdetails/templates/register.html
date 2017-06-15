@@ -1,34 +1,135 @@
+<!--{% for field in form %}
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <span class="text-danger small">{{ field.errors }}</span>
+        </div>
+        <label class="control-label col-sm-2" for="song_title">{{ field.label_tag }}</label>
+        <div class="col-sm-10">{{ field }}</div>
+    </div>
+{% endfor %}
+-->
 
 
-{% block body %}
-<div class="container-fluid">
 
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h3>Register for an Account</h3>
-                    {% if error_message %}
-                        <p><strong>{{ error_message }}</strong></p>
-                    {% endif %}
-                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% include 'form_template.html' %}
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                        </div>
-                    </form>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Smsify</title>
+
+        
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="{% static 'assets/login/bootstrap/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/login/font-awesome/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/login/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/login/css/style.css' %}">
+
+       
+        <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}" />
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'assets/login/ico/apple-touch-icon-144-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'assets/login/ico/apple-touch-icon-114-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'assets/login/ico/apple-touch-icon-72-precomposed.png' %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static 'assets/login/ico/apple-touch-icon-57-precomposed.png' %}">
+
+    </head>
+
+    <body>
+
+        <!-- Top content -->
+        <div class="top-content">
+            
+            <div class="inner-bg">
+                <div class="container">
+                    
+                   <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text">
+                        <h1>
+                            <strong>Smsify</strong> Signup
+                        </h1>
+                        <div class="description"></div>
+                    </div>
                 </div>
-                <div class="panel-footer">
-                    Already have an account? <a href="{% url 'smsdetails:login_user' %}">Click here</a> to log in.
+                    
+                    <div class="row">
+                       <div class="col-sm-6 col-sm-offset-3 text">                          
+                            <div class="form-box">
+                                <div class="form-top">
+                                    <div class="form-top-left">
+                                        <h3>Sign up now</h3>
+                                        <p>Fill in the form below to get instant access:</p>
+                                    </div>
+                                    <div class="form-top-right">
+                                        <i class="fa fa-pencil"></i>
+                                    </div>
+                                </div>
+                                <div class="form-bottom">
+                                    <form role="form" action="{% url 'smsdetails:register'%}" method="post" class="registration-form">
+                                        {% csrf_token %}
+                                        <!--<div class="form-group">
+                                            <label class="sr-only" for="first-name">First name</label>
+                                            <input type="text" name="first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="last-name">Last name</label>
+                                            <input type="text" name="last-name" placeholder="Last name..." class="form-last-name form-control" id="form-last-name">
+                                        </div>-->
+                                        <div class="form-group">
+                                            <label class="sr-only" for="user-name">User name</label>
+                                            <input type="text" name="username" placeholder="Username" class="form-first-name form-control" id="form-first-name" style="height: 42px" required="true">
+                                         {%if error%}
+                                                 <div class="form-top-left">
+                                                     <p>{{error}}</p>
+                                                 </div>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">                                        
+                                            <label class="sr-only" for="email">Email</label>
+                                            <input type="email" name="email" placeholder="Email" class="form-email form-control" id="form-email" style="height: 42px" required="true">
+                                            
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="password">Password</label>
+                                            <input type="password" name="password" placeholder="Password" 
+                                                        class="password form-control" id="password" style="height: 42px" required="true"></textarea>
+                                               
+                                        </div>
+                                        <button type="submit" class="btn">Sign me up!</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+            
         </div>
-    </div>
 
-</div>
+        <!-- Footer -->
+       
 
-{% endblock %}
+        <!-- Javascript -->
+         <script>
+                var imageurl = "{% static 'assets/login/img/backgrounds/1.jpg' %}";
+            </script>
 
+        <!-- Javascript -->
+        <script src="{% static 'assets/login/js/jquery-1.11.1.min.js' %}"></script>
+        <script src="{% static 'assets/login/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/login/js/jquery.backstretch.min.js' %}"></script>
+        <script src="{% static 'assets/login/js/scripts.js' %}"></script>
+        
+        <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
+    </body>
+
+</html>
