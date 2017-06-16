@@ -22,12 +22,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Smsify</title>
 
-        
+       
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="{% static 'assets/login/bootstrap/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'assets/login/font-awesome/css/font-awesome.min.css' %}">
         <link rel="stylesheet" href="{% static 'assets/login/css/form-elements.css' %}">
         <link rel="stylesheet" href="{% static 'assets/login/css/style.css' %}">
+         <link href="{% static 'assets/css/strengthify.css' %}" rel="stylesheet' %}" />
 
        
         <link rel="icon" type="image/png" href="{% static 'assets/img/favicon.png' %}" />
@@ -96,7 +97,7 @@
                                         <div class="form-group">
                                             <label class="sr-only" for="password">Password</label>
                                             <input type="password" name="password" placeholder="Password" 
-                                                        class="password form-control" id="password" style="height: 42px" required="true"></textarea>
+                                                        class="password form-control" id="password" style="height: 42px" minlength="8"  required="true"></textarea>
                                                
                                         </div>
                                         <button type="submit" class="btn">Sign me up!</button>
@@ -128,6 +129,7 @@
         <!-- Javascript -->
          <script>
                 var imageurl = "{% static 'assets/login/img/backgrounds/1.jpg' %}";
+                var zxcvbn_url = "{% static 'assets/js/zxcvbn.js' %}";
             </script>
 
         <!-- Javascript -->
@@ -135,10 +137,47 @@
         <script src="{% static 'assets/login/bootstrap/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'assets/login/js/jquery.backstretch.min.js' %}"></script>
         <script src="{% static 'assets/login/js/scripts.js' %}"></script>
-        
+        <script src="{% static 'assets/js/jquery.strengthify.js' %}"></script>
         <!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>
+
         <![endif]-->
+
+        <script>
+            $('.password').strengthify({
+                zxcvbn: zxcvbn_url
+            })
+
+
+
+            $('.password').strengthify({
+
+  // messages displayed in the tooltip
+    titles: [
+    'Weakest',
+    'Weak',
+    'So-so',
+    'Good',
+    'Perfect'
+  ],
+
+  // choose now between tooltip and element or both
+  tilesOptions:{
+    tooltip: true,
+    element: false
+  },
+
+  // display tooltips
+  drawTitles: true,
+
+  // display text messages
+  drawMessage: false,
+
+  // display strenth indicator bars
+  drawBars: true
+  
+})
+        </script>
 
     </body>
 
