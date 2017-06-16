@@ -22,6 +22,7 @@ urlpatterns = [
         views.ContactDelete.as_view(), name='contact-delete'),
     url(r'^logout_user/$', views.logout_user, name='logout_user'),
     url(r'^addcontact/', views.addcontact, name="addcontact"),
+    url(r'^counter/', views.counter, name="counter"),
 ]
 if True:
     urlpatterns += [url(r'^static/(?P<path>.*)$', serve,

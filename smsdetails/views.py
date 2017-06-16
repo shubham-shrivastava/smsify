@@ -33,6 +33,8 @@ source_phone_number = "+919511727469"
 
 client = Client(account_sid, auth_token)
 
+def counter(request):
+    return render(request, 'visitor.html')
 
 def messageview(request):
     if not request.user.is_authenticated():
