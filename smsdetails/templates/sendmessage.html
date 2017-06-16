@@ -20,11 +20,11 @@
 	                                    <div class="row">	                                        
 	                                        <div class="col-md-5">
 												<div class="form-group label-floating">
-													<label class="control-label">Enter Number</label>
+													<label class="control-label">Enter Number(10 digits)</label>
 													{% if comingfrom is not None %}
-													<input type="text" class="form-control" name="to" required="true" value="{{ contactinst.phone_num}}" maxlength="10">
+													<input type="tel" class="form-control number" name="to" required="true" value="{{ contactinst.phone_num}}" maxlength="10" pattern="^((\+91[789]\d{9})|([789]\d{9}))$" title="Only +91XXXXXXXXXX or XXXXXXXXXX">
 													{%else%}
-													<input type="text" class="form-control" name="to" required="true" maxlength="10">
+													<input type="tel" class="form-control number" name="to" required="true" maxlength="10" pattern="^[789]\d{9}$" title="Only XXXXXXXXXX">
 													{%endif%}
 												</div>
 	                                        </div>
@@ -132,4 +132,9 @@
     });
 });
     </script>
+
+
+
+
+
 	{% endblock %}

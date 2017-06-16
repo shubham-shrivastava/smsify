@@ -255,10 +255,11 @@ def addcontact(request):
             contact.email = request.POST.get('email', None)
             contact.user = request.user
             contact.save()
-            all_contacts = ContactDetail.objects.filter(
-                user=request.user)
-            return render(request, 'contacts.html', {'all_contacts':
-                                                     all_contacts})
+            return redirect('smsdetails:contact')
+            # all_contacts = ContactDetail.objects.filter(
+            #     user=request.user)
+            # return render(request, 'contacts.html', {'all_contacts':
+            #                                          all_contacts})
     else:
         form = ContactDetailForm()
     return render(request, 'addcontact.html', {'form': form})
