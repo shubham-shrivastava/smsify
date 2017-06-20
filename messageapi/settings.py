@@ -87,15 +87,17 @@ DATABASES = {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         # Or path to database file if using sqlite3.
-        'NAME': 'smsify',
+        'NAME': 'de29eth422657e',
         # Not used with sqlite3.
-        'USER': 'shubham_shrivastav',
-        'PASSWORD': 'Shubham@25',                  # Not used with sqlite3.
-        # 'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        # 'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
+        'USER': 'zzmreyewyuzlfy',
+        # Not used with sqlite3.
+        'PASSWORD': '0c3963ed6c7ed2eff88c18aba9034d580095e8a391ad72e426b363df530a6afc',
+        # Set to empty string for localhost. Not used with sqlite3.
+        'HOST': 'ec2-54-221-255-153.compute-1.amazonaws.com',
+        # Set to empty string for default. Not used with sqlite3.
+        'PORT': '5432',
     }
 }
-
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
