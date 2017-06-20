@@ -26,9 +26,9 @@ auth_token = "ce34579e8f7e2d6e7b7d654356be098a"
 
 
 # Kandy specific
-domain_api_key = "DAK9a5937b6418748e499fa81bcdf16d2fb"
-domain_secret = "DASc6c7f93b3c734abbbb9267a03230343d"
-user_id = "user1"
+domain_api_key = "DAK4075edbda4844e5daf9b577e36bbe1d6"
+domain_secret = "DASdf2f188dcdd840719487bfbeebbad5f4"
+user_id = "smsification"
 source_phone_number = "+919511727469"
 
 client = Client(account_sid, auth_token)

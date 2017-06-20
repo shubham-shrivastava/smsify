@@ -63,11 +63,9 @@ class SMS:
             print("SMS sent successfully!")
             return True
         else:
+            err = "Could not send SMS."
             return False
-            # err = "Could not send SMS."
-            # return render(request, 'sendmessage.html',
-            #               {'form': form, 'error': 'Problem with API, Could not send.'})
-            # raise ValueError(err)
+            raise ValueError(err)
 
 
 # def main():
