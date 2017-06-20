@@ -1,6 +1,7 @@
 from Kandy import *
 #import pprint
 #pp = pprint.PrettyPrinter(indent=4)
+from django.shortcuts import render, redirect
 
 
 class SMS:
@@ -9,7 +10,7 @@ class SMS:
     user_id = None
 
     user_access_token = None
-    device_id = "60087B793BA2448A8BB8AFB8A3CBFA86"
+    device_id = None
 
     #   Check user auth details
     def check_init_error(self, domain_api_key, domain_secret, user_id):
@@ -39,18 +40,15 @@ class SMS:
             raise ValueError(err)
         print('')
 
-        # This will be constant. If not known, than use this function
-        # For this case/id: 60087B793BA2448A8BB8AFB8A3CBFA86
-        #   Get device ID
-        # print("Getting Device ID")
-        # data = User.get_devices(self.user_access_token)
-        # if data and data['result'] and data['result']['devices'] and data['result']['devices'][0] and data['result']['devices'][0]['id']:
-        #     self.device_id = data['result']['devices'][0]['id']
-        #     print("Device ID: " + self.device_id)
-        # else:
-        #     err = "Server replied with invalid User Access Token."
-        #     raise ValueError(err)
-        # print('')
+        print("Getting Device ID")
+        data = User.get_devices(self.user_access_token)
+        if data and data['result'] and data['result']['devices'] and data['result']['devices'][0] and data['result']['devices'][0]['id']:
+            self.device_id = data['result']['devices'][0]['id']
+            print("Device ID: " + self.device_id)
+        else:
+            err = "Server replied with invalid User Access Token."
+            raise ValueError(err)
+        print('')
 
     #   Send SMS
     def send(self, source, destination, text):
@@ -65,8 +63,11 @@ class SMS:
             print("SMS sent successfully!")
             return True
         else:
-            err = "Could not send SMS."
-            raise ValueError(err)
+            return False
+            # err = "Could not send SMS."
+            # return render(request, 'sendmessage.html',
+            #               {'form': form, 'error': 'Problem with API, Could not send.'})
+            # raise ValueError(err)
 
 
 # def main():

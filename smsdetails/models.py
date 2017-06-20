@@ -14,7 +14,7 @@ class ContactDetail(models.Model):
     user = models.ForeignKey(User, default=1)
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
-    phone_num = models.CharField(validators=[phone_regex], max_length=10)
+    phone_num = models.CharField(validators=[phone_regex], max_length=15)
     email = models.EmailField(max_length=100, blank=True, null=True)
 
     def __str__(self):
@@ -26,7 +26,7 @@ class ContactDetail(models.Model):
 
 class SmsDetail(models.Model):
     to = models.CharField(
-        validators=[phone_regex], max_length=10, null=True, blank=True)
+        validators=[phone_regex], max_length=15, null=True, blank=True)
     user = models.ForeignKey(User, default=1)
     contact = models.ForeignKey(
         ContactDetail, on_delete=models.CASCADE, null=True, blank=True)

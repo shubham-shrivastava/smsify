@@ -26,15 +26,17 @@ auth_token = "ce34579e8f7e2d6e7b7d654356be098a"
 
 
 # Kandy specific
-domain_api_key = "DAKb452d7f3dc3647788008c6f27fbf0d40"
-domain_secret = "DAS016c34a169e1498f801ef68a7cdab9a1"
-user_id = "shubham"
+domain_api_key = "DAK9a5937b6418748e499fa81bcdf16d2fb"
+domain_secret = "DASc6c7f93b3c734abbbb9267a03230343d"
+user_id = "user1"
 source_phone_number = "+919511727469"
 
 client = Client(account_sid, auth_token)
 
+
 def counter(request):
     return render(request, 'visitor.html')
+
 
 def messageview(request):
     if not request.user.is_authenticated():
@@ -128,13 +130,16 @@ def sendmessage(request):
                 print(destination_phone_number)
             else:
                 destination_phone_number = "+91" + request.POST['to']
-                print(destination_phone_number)
+                print("Dest: " + destination_phone_number)
             #destination_phone_number = request.POST['to']
             messagebody = request.POST['message_body']
             try:
                 sms = SMS(domain_api_key, domain_secret, user_id)
-                sms.send(source_phone_number,
-                         destination_phone_number, messagebody)
+                state = sms.send(source_phone_number,
+                                 destination_phone_number, messagebody)
+                if not state:
+                    return render(request, 'sendmessage.html', {'form': form, 'error': 'Problem with API, Could not send.'})
+
             except Exception as e:
                 print('Error: ' + str(e))
             # messageSent = client.messages.create(

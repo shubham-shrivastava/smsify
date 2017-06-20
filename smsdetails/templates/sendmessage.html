@@ -47,6 +47,10 @@
 	                                    <div class="row">
 	                                        <div class="col-md-12">
 	                                            <div class="form-group">
+	                                            {% if error %}
+	                                            	<label style="color: red"><strong>{{error}}</strong></label>
+	                                            	<br>
+	                                            {% endif %}
 	                                                <label style="color: black">Message Body
 	                                                </label>
 													<div class="form-group label-floating">
