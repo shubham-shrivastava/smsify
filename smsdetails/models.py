@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import Permission, User
+from django.conf import settings
 
 phone_regex = RegexValidator(
     regex=r'^\+?1?\d{10}$', message="Phone number must be entered in the format: '+999999999'. 10 digits allowed.")
@@ -14,7 +15,7 @@ count.contribute_to_class(User, 'smscount')
 
 
 class ContactDetail(models.Model):
-    user = models.ForeignKey(User, default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
     phone_num = models.CharField(validators=[phone_regex], max_length=15)
@@ -30,7 +31,7 @@ class ContactDetail(models.Model):
 class SmsDetail(models.Model):
     to = models.CharField(
         validators=[phone_regex], max_length=15, null=True, blank=True)
-    user = models.ForeignKey(User, default=1)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     contact = models.ForeignKey(
         ContactDetail, on_delete=models.CASCADE, null=True, blank=True)
     message_body = models.CharField(

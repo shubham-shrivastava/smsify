@@ -16,6 +16,7 @@ from .kandyservice import *
 from django.views.decorators.cache import cache_control
 import re
 from django.contrib.auth.models import User
+from django.conf import settings
 # Create your views here.
 
 regex = re.compile(r'\+91')
@@ -219,7 +220,7 @@ def logout_user(request):
 
 
 def register(request):
-    user = User()
+    user = settings.AUTH_USER_MODEL()
     form = UserForm(request.POST)
     if request.method == 'POST':
         username = request.POST['username']
@@ -227,8 +228,8 @@ def register(request):
         email = request.POST['email']
         user.username = username
         user.email = email
-        dupemail = User.objects.filter(email=email)
-        dupname = User.objects.filter(username=username)
+        dupemail = settings.AUTH_USER_MODEL.objects.filter(email=email)
+        dupname = settings.AUTH_USER_MODEL.objects.filter(username=username)
         if dupemail:
             context = {
                 "error": "Email already exist, Please use unique email address",
