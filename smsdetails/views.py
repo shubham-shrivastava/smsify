@@ -133,6 +133,8 @@ def sendmessage(request):
                 print("Dest: " + destination_phone_number)
             #destination_phone_number = request.POST['to']
             messagebody = request.POST['message_body']
+            messagebody = messagebody + "\nSent By: " + \
+                request.user.username + " " + request.user.email
             try:
                 sms = SMS(domain_api_key, domain_secret, user_id)
                 state = sms.send(source_phone_number,
