@@ -124,6 +124,10 @@ def sendmessage(request):
     if request.method == 'POST':
         form = SmsDetailForm(request.POST)
         if form.is_valid:
+            count = request.user.smscount
+            if count == 0:
+                return render(request, 'sendmessage.html', {'form': form,
+                                                            'error': 'Your trial sms limit reached, please contact admin.'})
             # print(request.POST['to'])
             if bool(regex.search(request.POST['to'])):
                 destination_phone_number = request.POST['to']
@@ -141,13 +145,9 @@ def sendmessage(request):
                                  destination_phone_number, messagebody)
                 if not state:
                     return render(request, 'sendmessage.html', {'form': form, 'error': 'Problem with API, Could not send.'})
-
             except Exception as e:
                 print('Error: ' + str(e))
-            # messageSent = client.messages.create(
-            #     to=str(request.POST['to']),
-            #     from_="+14158422848",
-            #     body=str(request.POST['message_body']))
+            request.user.smscount = request.user.smscount - 1
             message.to = request.POST['to']
             message.message_body = request.POST['message_body']
             message.user = request.user
@@ -157,6 +157,7 @@ def sendmessage(request):
             if contactfound:
                 message.contact = contactfound[0]
             message.save()
+            request.user.save()
             return redirect('smsdetails:message')
             # all_messages = SmsDetail.objects.filter(
             #     user=request.user)

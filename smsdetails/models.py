@@ -9,6 +9,9 @@ phone_regex = RegexValidator(
 
 #User._meta.get_field('email')._unique = True
 
+count = models.IntegerField(default=10)
+count.contribute_to_class(User, 'smscount')
+
 
 class ContactDetail(models.Model):
     user = models.ForeignKey(User, default=1)
