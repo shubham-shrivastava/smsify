@@ -220,7 +220,7 @@ def logout_user(request):
 
 
 def register(request):
-    user = settings.AUTH_USER_MODEL()
+    user = User()
     form = UserForm(request.POST)
     if request.method == 'POST':
         username = request.POST['username']
@@ -228,8 +228,8 @@ def register(request):
         email = request.POST['email']
         user.username = username
         user.email = email
-        dupemail = settings.AUTH_USER_MODEL.objects.filter(email=email)
-        dupname = settings.AUTH_USER_MODEL.objects.filter(username=username)
+        dupemail = User.objects.filter(email=email)
+        dupname = User.objects.filter(username=username)
         if dupemail:
             context = {
                 "error": "Email already exist, Please use unique email address",
