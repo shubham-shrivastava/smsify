@@ -21,16 +21,13 @@ from django.conf import settings
 
 regex = re.compile(r'\+91')
 
-account_sid = "ACc70d30c48ffa3987940f81f3c1bff2a9"
-# Your Auth Token from twilio.com/console
-auth_token = "ce34579e8f7e2d6e7b7d654356be098a"
 
 
 # Kandy specific
-domain_api_key = "DAK4075edbda4844e5daf9b577e36bbe1d6"
-domain_secret = "DASdf2f188dcdd840719487bfbeebbad5f4"
-user_id = "smsification"
-source_phone_number = "+919511727469"
+domain_api_key = "<your_api_key>"
+domain_secret = "<your_api_secret>"
+user_id = "<your_uid>"
+source_phone_number = "<source>"
 
 client = Client(account_sid, auth_token)
 
@@ -53,20 +50,6 @@ def contactview(request):
     return render(request, 'contacts.html', {'all_contacts': all_contacts})
 
 
-# class MessageIndexView(generic.ListView):
-#     template_name = 'messages.html'
-#     context_object_name = "all_messages"
-
-#     def get_queryset(self):
-#         return SmsDetail.objects.all()
-
-
-# class ContactIndexView(generic.ListView):
-#     template_name = 'contacts.html'
-#     context_object_name = "all_contacts"
-
-#     def get_queryset(self):
-#         return ContactDetail.objects.all()
 
 
 def index(request):
@@ -80,16 +63,6 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-# def contact(request):
-#     all_contacts = ContactDetail.objects.all()
-#     context = {'all_contacts': all_contacts, }
-#     return render(request, 'contacts.html', context)
-
-
-# def message(request):
-#     all_messages = SmsDetail.objects.all()
-#     context = {'all_messages': all_messages, }
-#     return render(request, 'messages.html', context)
 
 def demo(request):
     return render(request, 'demo.html')
