@@ -68,21 +68,3 @@ class SMS:
             raise ValueError(err)
 
 
-# def main():
-#     domain_api_key = "DAKb452d7f3dc3647788008c6f27fbf0d40"
-#     domain_secret = "DAS016c34a169e1498f801ef68a7cdab9a1"
-#     user_id = "shubham"
-
-#     source_phone_number = "+918236028730"
-#     destination_phone_number = "+919511727469"
-#     message = "Hello Shubham"
-
-#     try:
-#         sms = SMS(domain_api_key, domain_secret, user_id)
-#         sms.send(source_phone_number, destination_phone_number, message)
-#     except Exception as e:
-#         print('Error: ' + str(e))
-
-
-# if __name__ == "__main__":
-#     main()
