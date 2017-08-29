@@ -29,7 +29,6 @@ domain_secret = "<your_api_secret>"
 user_id = "<your_uid>"
 source_phone_number = "<source>"
 
-client = Client(account_sid, auth_token)
 
 
 def counter(request):
