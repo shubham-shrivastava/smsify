@@ -24,12 +24,11 @@ regex = re.compile(r'\+91')
 
 
 # Kandy specific
-domain_api_key = "<your_api_key>"
-domain_secret = "<your_api_secret>"
-user_id = "<your_uid>"
-source_phone_number = "<source>"
+domain_api_key = "DAK4075edbda4844e5daf9b577e36bbe1d6"
+domain_secret = "DASdf2f188dcdd840719487bfbeebbad5f4"
+user_id = "smsification"
+source_phone_number = "+919511727469"
 
-client = Client(account_sid, auth_token)
 
 
 def counter(request):
