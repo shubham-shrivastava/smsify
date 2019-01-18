@@ -6,29 +6,26 @@
 <head>
 <title>404 error</title>
 
-<link href="{% static 'assets/background/css/errorcss.css' %}" rel="stylesheet" />
 </head>
 <body>
-
-
-	<div class="wrap">
-		
-		<div class="content">
-		
-			<div class="logo">
-				<h1><img src="{% static 'assets/img/logo.png' %}"/></h1>
-				<span><img src="{% static 'assets/img/signal.png' %}"/>Oops! The Page you requested was not found!</span>
-			</div>
-			<div class="buttom">
-				<div class="seach_bar">
-					<p>You can go to <span><a href="{% url 'smsdetails:index'%}">Home</a></span> page. Go <a href="goback" onclick="history.go(-1);return true;">Back</a></p>
-					</div>
-			</div>
-		</div>
+	<div id="my-dashboard">
 	</div>
-
-	<script src="{% static 'assets/js/jquery-3.1.0.min.js' %}"></script>
-	<script src="{% static 'assets/background/js/jquery.backstretch.min.js' %}"></script>
-	<script src="{% static 'assets/background/js/scripts.js' %}"></script>
+	<script type="text/javascript">
+		(function(d, a, s, h, b, oa, rd) {
+		  if (!d[b]) {oa = a.createElement(s), oa.async = 1;
+		  oa.src = h; rd = a.getElementsByTagName(s)[0];
+		  rd.parentNode.insertBefore(oa, rd);} d[b]=d[b]||{};
+		  d[b].addDashboard=d[b].addDashboard||function(v) {
+		  (d[b].list = d[b].list || []).push(v) };
+		})(window, document, 'script',
+		  'https://cdn-a.cumul.io/js/cumulio.min.js', 'Cumulio');
+	  
+		Cumulio.addDashboard({
+		  dashboardId: 'ca8322f0-1a29-43df-9c4a-fb9485feaee0>',
+		  container: '#my-dashboard',
+		  key: '050051cf-d852-4868-962a-60f324ae19af',
+		  token: 'WzavvqDD5zZVeC0MGHgc3Y20Di41OaxzVS6BHoOljejMe1ajwGfFOEQwonuxvXOXbplfaojf9RHIA6AjwcniBXfAIfH2A4AaDUBtlhQIql8SEsFMZYGn5ybfyX20XCY8kOxD3cdeEIRgbhBxfl1jun'
+		});
+	  </script>
 </body>
 </html>
