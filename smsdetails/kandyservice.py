@@ -14,6 +14,7 @@ class SMS:
 
     #   Check user auth details
     def check_init_error(self, domain_api_key, domain_secret, user_id):
+        print('Cheking init error')
         # if not domain_api_key:
         #     raise ValueError('Invalid domain key.')
         # if not domain_secret:
