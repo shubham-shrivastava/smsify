@@ -6,26 +6,29 @@
 <head>
 <title>404 error</title>
 
+<link href="{% static 'assets/background/css/errorcss.css' %}" rel="stylesheet" />
 </head>
 <body>
-	<div id="my-dashboard">
+
+
+	<div class="wrap">
+		
+		<div class="content">
+		
+			<div class="logo">
+				<h1><img src="{% static 'assets/img/logo.png' %}"/></h1>
+				<span><img src="{% static 'assets/img/signal.png' %}"/>Oops! The Page you requested was not found!</span>
+			</div>
+			<div class="buttom">
+				<div class="seach_bar">
+					<p>You can go to <span><a href="#">Home</a></span> page. Go <a href="goback" onclick="history.go(-1);return true;">Back</a></p>
+					</div>
+			</div>
+		</div>
 	</div>
-	<script type="text/javascript">
-		(function(d, a, s, h, b, oa, rd) {
-		  if (!d[b]) {oa = a.createElement(s), oa.async = 1;
-		  oa.src = h; rd = a.getElementsByTagName(s)[0];
-		  rd.parentNode.insertBefore(oa, rd);} d[b]=d[b]||{};
-		  d[b].addDashboard=d[b].addDashboard||function(v) {
-		  (d[b].list = d[b].list || []).push(v) };
-		})(window, document, 'script',
-		  'https://cdn-a.cumul.io/js/cumulio.min.js', 'Cumulio');
-	  
-		Cumulio.addDashboard({
-		  dashboardId: '625dbb79-6f2b-40ab-84ff-fda86a7b599a',
-		  container: '#my-dashboard',
-		  key: '6c456806-429f-4b19-a193-dd133ff124f6',
-		  token: 'XIQlAwYd7qLnqWb9BvI5bEg6IpaoAXQVoj61vR2Cksuq7C7fVoIeuiuhaAOuxNZ5DM1njKHVdlVEqHuMCACeNNdpMETc2trKrgIUF64DF0WpqblCzO8RyhXQs8PQ3gXrsalYVMo61gmh1POqPTsfus'
-		});
-	  </script>
+
+	<script src="{% static 'assets/js/jquery-3.1.0.min.js' %}"></script>
+	<script src="{% static 'assets/background/js/jquery.backstretch.min.js' %}"></script>
+	<script src="{% static 'assets/background/js/scripts.js' %}"></script>
 </body>
 </html>
