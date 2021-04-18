@@ -21,7 +21,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = '$vylrtjfz&q6jfv5tvsv&$i2d_i!*r&3g6s-#71q$q7rxwxs_v'
+SECRET_KEY = '<>'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -75,27 +75,10 @@ WSGI_APPLICATION = 'messageapi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
     'default': {
-        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # Or path to database file if using sqlite3.
-        'NAME': 'de29eth422657e',
-        # Not used with sqlite3.
-        'USER': 'zzmreyewyuzlfy',
-        # Not used with sqlite3.
-        'PASSWORD': '0c3963ed6c7ed2eff88c18aba9034d580095e8a391ad72e426b363df530a6afc',
-        # Set to empty string for localhost. Not used with sqlite3.
-        'HOST': 'ec2-54-221-255-153.compute-1.amazonaws.com',
-        # Set to empty string for default. Not used with sqlite3.
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
